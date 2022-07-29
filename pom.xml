@@ -15,6 +15,11 @@
     <description>for study</description>
     <properties>
         <java.version>1.8</java.version>
+        <skipTests>true</skipTests>
+        <start-class>xyz.hplus.guava.GuavaApplication</start-class>
+        <docker.image.name>guava</docker.image.name>
+        <docker.image.tag>1.0.0</docker.image.tag>
+        <profile>default</profile>
     </properties>
     <dependencies>
         <dependency>
@@ -60,6 +65,22 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.10</version>
+                <configuration>
+                    <imageName>${docker.image.name}-${profile}:${docker.image.tag}</imageName>
+                    <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
