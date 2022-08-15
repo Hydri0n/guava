@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.hplus.guava.dao.InboxDao">
+  <resultMap id="BaseResultMap" type="xyz.hplus.guava.pojo.entity.InboxEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="plan_id" jdbcType="INTEGER" property="planId" />
+    <result column="poi_id" jdbcType="INTEGER" property="poiId" />
+    <result column="rate" jdbcType="TINYINT" property="rate" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <result column="estimated_cost" jdbcType="INTEGER" property="estimatedCost" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plan_id, poi_id, rate, tag_id, estimated_cost, remark, created_time, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_inbox
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_inbox
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.hplus.guava.pojo.entity.InboxEntity" useGeneratedKeys="true">
+    insert into t_inbox (plan_id, poi_id, rate,
+      tag_id, estimated_cost, remark,
+      created_time, updated_time)
+    values (#{planId,jdbcType=INTEGER}, #{poiId,jdbcType=INTEGER}, #{rate,jdbcType=TINYINT},
+      #{tagId,jdbcType=INTEGER}, #{estimatedCost,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xyz.hplus.guava.pojo.entity.InboxEntity" useGeneratedKeys="true">
+    insert into t_inbox
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="poiId != null">
+        poi_id,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="estimatedCost != null">
+        estimated_cost,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="planId != null">
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="poiId != null">
+        #{poiId,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=TINYINT},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="estimatedCost != null">
+        #{estimatedCost,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.hplus.guava.pojo.entity.InboxEntity">
+    update t_inbox
+    <set>
+      <if test="planId != null">
+        plan_id = #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="poiId != null">
+        poi_id = #{poiId,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=TINYINT},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="estimatedCost != null">
+        estimated_cost = #{estimatedCost,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.hplus.guava.pojo.entity.InboxEntity">
+    update t_inbox
+    set plan_id = #{planId,jdbcType=INTEGER},
+      poi_id = #{poiId,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=TINYINT},
+      tag_id = #{tagId,jdbcType=INTEGER},
+      estimated_cost = #{estimatedCost,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

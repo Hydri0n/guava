@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.hplus.guava.dao.PoiTagDao">
+  <resultMap id="BaseResultMap" type="xyz.hplus.guava.pojo.entity.PoiTagEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="is_default" jdbcType="TINYINT" property="isDefault" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, is_default, tag_name, color, user_id, created_time, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_poi_tag
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="listByUserId" resultType="xyz.hplus.guava.pojo.entity.PoiTagEntity">
+      select * from t_poi_tag where user_id = #{userId} and is_delete != 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_poi_tag
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="xyz.hplus.guava.pojo.entity.PoiTagEntity" useGeneratedKeys="true">
+    insert into t_poi_tag (is_default, tag_name, color,
+      user_id, created_time, updated_time
+      )
+    values (#{isDefault,jdbcType=TINYINT}, #{tagName,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR},
+      #{userId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xyz.hplus.guava.pojo.entity.PoiTagEntity" useGeneratedKeys="true">
+    insert into t_poi_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="tagName != null">
+        tag_name,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.hplus.guava.pojo.entity.PoiTagEntity">
+    update t_poi_tag
+    <set>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="tagName != null">
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.hplus.guava.pojo.entity.PoiTagEntity">
+    update t_poi_tag
+    set is_default = #{isDefault,jdbcType=TINYINT},
+      tag_name = #{tagName,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
